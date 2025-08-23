@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,600,0,0&icon_names=search" />
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Weather App</h1>
+            <label for="unitType" class="switch">
+            <input type="checkbox" id="unitType" checked/>
+            <div class="slider">
+                <span>Metric</span>
+            </div>
+            </label>
+        </header>
+
+        <form class="search-form">
+            <span class="material-symbols-outlined">search</span>
+            <input 
+            type="text" 
+            id="search" 
+            placeholder="Enter city, State or Country name" 
+            required
+            />
+        </form>
+
+        <section class="grid">
+            <div class="grid-item">Box 1</div>
+
+            <div class="grid-item">
+                <h5>Feels Like</h5>
+                <p class="feels-like">99.99 °C</p>
+            </div>
+
+            <div class="grid-item">
+                <h5>Humidity</h5>
+                <p class="humidity">99%</p>
+            </div>
+
+            <div class="grid-item">
+                <h5>Wind Speed</h5>
+                <p class="wind-speed">99.99 m/s</p>
+            </div>
+
+            <div class="grid-item">
+                <h5>Pressure</h5>
+                <p class="pressure">9999 hPa</p>
+            </div>
+
+        </section>
+    </main>
+</body>
+</html>
