@@ -2,6 +2,7 @@ const API_KEY = "a9c43d1aafffd09091b47fee2e0d2a02";
 const BASE_API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
 const content={
+    mainGrid:document.querySelector(".grid-item:first-child"),
     locationName:document.querySelector(".location"),
     temp:document.querySelector(".temp"),
     unit:document.querySelector(".unit"),
@@ -12,6 +13,7 @@ const content={
     humidity:document.querySelector(".humidity"),
     windSpeed:document.querySelector(".wind-speed"),
     pressure:document.querySelector(".pressure"),
+    weatherImage:document.querySelector(".weather-image"),
 }
 
 
@@ -90,4 +92,39 @@ function displayWeatherData(data,isImperial){
   content.humidity.textContent = `${main.humidity}%`;
   content.windSpeed.textContent = `${wind.speed} ${windSpeedUnit}`;
   content.pressure.textContent = `${pressure} ${pressureUnit}`;
+  content.weatherImage.src=`https://refinedguides.com/weather-app/img/${weather[0].icon}.png`;
+
+
+  const currentTimestamp =Math.floor(Date.now()/1000);
+
+  const isDaytime=currentTimestamp>=sys.sunrise && currentTimestamp<=sys.sunset;
+
+  content.mainGrid.classList.toggle('day-time', isDaytime);
+  content.mainGrid.classList.toggle('night-time', !isDaytime);
 }
+
+function getCurrentPosition(){
+  return new Promise((resolve)=>{
+     const latitude=28.61;
+     const longitude=77.23;
+     if("geolocation" in navigator){
+      navigator.geolocation.getCurrentPosition(
+        (position) => resolve(position.coords),
+        ()=>resolve({latitude,longitude})
+      );
+     }else{
+      resolve({latitude,longitude});
+     }
+  })
+}
+
+document.addEventListener("DOMContentLoaded",async ()=>{
+  try{
+    const { latitude, longitude } = await getCurrentPosition();
+    const data = await getWeatherByposition(latitude, longitude, "metric");
+    displayWeatherData(data,false);
+  }
+  catch{
+      console.error("Error fetching data on page ",error);
+  }
+})
